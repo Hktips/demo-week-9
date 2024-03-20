@@ -10,14 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    - name: Checkout code #clone your repo
+      uses: actions/checkout@v2 # check repo code
 
     - name: SSH and deploy
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      run: |
-        echo "$SSH_PRIVATE_KEY" > keyfile
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }} #get secret into SSH_PRIVATE_KEY variable.
+      run: | # copy ssh key into keyfile variable.
+        echo "$SSH_PRIVATE_KEY" > keyfile  
         chmod 600 keyfile
         ssh -t -i keyfile ubuntu@ec2-16-170-225-15.eu-north-1.compute.amazonaws.com "sudo bash ~/deploy.sh"
 
